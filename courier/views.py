@@ -68,3 +68,13 @@ def updateCourier(request,pk):
             return redirect('/')
     context={'form':form}
     return render(request,'courier/update_form.html',context)
+
+def deleteOrder(request, pk):
+
+	order = Order.objects.get(id=pk)
+	if request.method == "POST":
+		order.delete()
+		return redirect('/')
+
+	context = {'item':order}
+	return render(request, 'courier/remove_courier.html', context)
