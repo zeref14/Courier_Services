@@ -1,0 +1,16 @@
+{% extends 'courier/main.html' %}
+{% load static %}
+{% block content %}
+    <br>
+    <h5>Student:  {{ student.name }}</h5>
+    <hr>
+<form action="" method="post">
+{% csrf_token %}
+    {{ formset.management_form }}
+    {% for form in formset %}
+    {{ form }}
+    <hr>
+    {% endfor %}
+<input type="submit" name="Sumbit">
+</form>
+{% endblock %}

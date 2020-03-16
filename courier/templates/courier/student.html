@@ -1,0 +1,90 @@
+{%  extends 'courier/main.html' %}
+
+{% block content %}
+
+	<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Student:</h5>
+			<hr>
+            <p>Name :   {{ student.name }}</p>
+            <p>Room_No :   {{ student.room_no }}</p>
+            <hr>
+{#			 <td><a class="btn btn-sm btn-info" href="{% url 'update_courier' %}">Update</a> </td>#}
+			<a class="btn btn-outline-info  " href="{% url 'create_courier' student.id %}">Place Courier</a>
+
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Contact Information:</h5>
+			<hr>
+			<p>Email :  {{ student.email }} </p>
+			<p>Phone :  {{ student.phone }} </p>
+		</div>
+	</div>
+
+	<div class="col-md">
+		<div class="card card-body">
+			<h5>Total Couriers:</h5>
+			<hr>
+			<h1 style="text-align: center;padding: 10px">{{ total_order }}</h1>
+		</div>
+	</div>
+</div>
+
+
+<br>
+<div class="row">
+	<div class="col">
+		<div class="card card-body">
+			<form class="form-control-sm" method="get">
+                <label>Company: </label>
+                {{ myFilter.form.company }}
+                <label>Status: </label>
+                {{ myFilter.form.status }}
+                <label>Start_Date: </label>
+                {{ myFilter.form.start_date }}
+                <label>End_Date: </label>
+                {{ myFilter.form.end_date }}
+
+		    <button class="btn btn-primary" type="submit">Search</button>
+		  </form>
+		</div>
+	</div>
+
+</div>
+<br>
+
+<div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Courier</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+					<th>Update</th>
+					<th>Remove</th>
+				</tr>
+                {% for order in orders %}
+                    <tr>
+                    <td>{{ order.company }}</td>
+                    <td>{{ order.date_created }}</td>
+                    <td>{{ order.status }}</td>
+                    <td><a class="btn btn-sm btn-info" href="{% url 'update_courier' order.id %}">Update</a></td>
+                    <td><a href="">Remove</a></td>
+                    </tr>
+
+
+                {% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
