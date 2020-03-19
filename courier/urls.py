@@ -11,4 +11,5 @@ urlpatterns = [
     path('create_courier/<str:pk>/',views.createCourier,name='create_courier'),
     path('update_courier/<str:pk>/',views.updateCourier,name='update_courier'),
     path('remove_courier/<str:pk>/',views.deleteOrder,name='remove_courier'),
+    path('update_student/<str:pk>/',views.updateStudent,name='update_student'),
 ]

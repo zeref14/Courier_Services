@@ -8,9 +8,9 @@
 {% csrf_token %}
     {{ formset.management_form }}
     {% for form in formset %}
-    {{ form }}
+    {{ form.as_p }}
     <hr>
     {% endfor %}
-<input type="submit" name="Sumbit">
+ <button class="btn btn-primary" type="submit">Sumbit</button>
 </form>
 {% endblock %}

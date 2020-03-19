@@ -12,8 +12,9 @@
             <p>Name :   {{ student.name }}</p>
             <p>Room_No :   {{ student.room_no }}</p>
             <hr>
-{#			 <td><a class="btn btn-sm btn-info" href="{% url 'update_courier' %}">Update</a> </td>#}
-			<a class="btn btn-outline-info  " href="{% url 'create_courier' student.id %}">Place Courier</a>
+			 <a class="btn btn-outline-info" href="{% url 'update_student' student.id %}">Update</a>
+            <br>
+             <a class="btn btn-outline-info  " href="{% url 'create_courier' student.id %}">Place Courier</a>
 
 		</div>
 	</div>
@@ -41,6 +42,7 @@
 <div class="row">
 	<div class="col">
 		<div class="card card-body">
+            <h5>Filter:</h5>
 			<form class="form-control-sm" method="get">
                 <label>Company: </label>
                 {{ myFilter.form.company }}

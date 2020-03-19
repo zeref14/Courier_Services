@@ -1,8 +1,9 @@
 from django.shortcuts import render,redirect
 from .models import *
-from .forms import OrderForm
+from .forms import *
 from django.forms import inlineformset_factory
 from .filters import *
+from django.core.mail import send_mail
 # Create your views here.
 
 def home(request):
@@ -46,10 +47,15 @@ def createCourier(request,pk):
     student=Student.objects.get(id=pk)
     formset=OrderFormSet(queryset=Order.objects.none(),instance=student)
     if request.method == 'POST':
-        # form= OrderForm(request.POST)
+
         formset = OrderFormSet(request.POST, instance=student)
         if formset.is_valid():
             formset.save()
+            send_mail('You have a NEW COURIER at the BHAWAN',
+                      'This is an auto-generated email.Please do not reply. ',
+                      'Rajeev Bhawan',
+                      [student.email],
+                      fail_silently=False)
             return redirect('/')
 
 
@@ -65,7 +71,12 @@ def updateCourier(request,pk):
         form= OrderForm(request.POST,instance=order)
         if form.is_valid():
             form.save()
-            return redirect('/')
+            send_mail('Your courier is '+order.status+ ' at the BHAWAN',
+                      'This is an auto-generated email.Please do not reply. ',
+                      'Rajeev Bhawan',
+                      [order.student.email],
+                      fail_silently=False)
+            return redirect('home')
     context={'form':form}
     return render(request,'courier/update_form.html',context)
 
@@ -74,7 +85,19 @@ def deleteOrder(request, pk):
 	order = Order.objects.get(id=pk)
 	if request.method == "POST":
 		order.delete()
-		return redirect('/')
+		return redirect('home')
 
 	context = {'item':order}
 	return render(request, 'courier/remove_courier.html', context)
+
+def updateStudent(request,pk):
+    student=Student.objects.get(id=pk)
+    form=StudentForm(instance=student)
+    if request.method == 'POST':
+        form=StudentForm(request.POST,instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+
+    context={'form':form}
+    return render(request,'courier/update_form.html',context)
