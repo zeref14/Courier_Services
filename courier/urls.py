@@ -12,4 +12,8 @@ urlpatterns = [
     path('update_courier/<str:pk>/',views.updateCourier,name='update_courier'),
     path('remove_courier/<str:pk>/',views.deleteOrder,name='remove_courier'),
     path('update_student/<str:pk>/',views.updateStudent,name='update_student'),
+    path('register/',views.registerPage,name='register'),
+    path('login/',views.loginPage,name='login'),
+    path('user/',views.userPage,name='user-page'),
+    path('logout/',views.logoutUser,name='logout'),
 ]

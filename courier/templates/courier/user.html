@@ -1,0 +1,37 @@
+{%  extends 'courier/main.html' %}
+
+{% block content %}
+{% include 'courier/status.html' %}
+   <div class="row">
+	<div class="col-md">
+		<div class="card card-body">
+			<table class="table table-sm">
+				<tr>
+					<th>Courier</th>
+					<th>Date Orderd</th>
+					<th>Status</th>
+
+				</tr>
+                {% for order in orders %}
+                    <tr>
+                    <td>{{ order.company }}</td>
+                    <td>{{ order.date_created }}</td>
+                    <td>{{ order.status }}</td>
+
+                    </tr>
+
+
+                {% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+
+{% endblock content %}
+
+{#{% extends 'courier/main.html' %}#}
+{#{% include 'courier/status.html' %}#}
+{#{% block content %}#}
+{#    <h3>User Page</h3>#}
+{#{% endblock %}#}

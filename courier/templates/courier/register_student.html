@@ -1,0 +1,24 @@
+{%  extends 'courier/main.html' %}
+{% load static %}
+
+{% block content %}
+    <br>
+    <div align="center">
+        <div class="card border-dark mb-3" style="max-width: 18rem;">
+              <div class="card-header">Registration:</div>
+                      <div class="card-body text-dark">
+                        <form method="post" action="">
+                               {% csrf_token %}
+                                 <label>Username:</label>
+                                 {{ form.username }}
+                                 <label>Password:</label>
+                                 {{ form.password1 }}
+                                 <label>Confirm Password:</label>
+                                 {{ form.password2 }}
+                                     <hr>
+                                <input class="btn btn-primary"  type="submit" name="Create_User">
+                        </form>
+                      </div>
+            </div>
+    </div>
+{% endblock %}
