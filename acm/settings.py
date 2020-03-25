@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'courier.apps.CourierConfig',
     'django_filters',
+    'channels'
 ]
 
 MIDDLEWARE = [
@@ -71,6 +72,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'acm.wsgi.application'
+ASGI_APPLICATION = 'acm.routing.application'
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            "hosts": [('127.0.0.1', 6379)],
+        },
+    },
+}
 
 
 # Database
@@ -128,17 +138,25 @@ STATICFILES_DIRS=[
 
 MEDIA_ROOT=os.path.join(BASE_DIR,'static/images')
 
+EMAIL_BACKEND='django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST='smtp.gmail.com'
 EMAIL_PORT='587'
 EMAIL_HOST_USER='courier.service.bhawan@gmail.com'
-
 EMAIL_USE_TLS=True
 EMAIL_USE_SSL=False
 
 
 
 
+from django.contrib.messages import constants as messages
 
+MESSAGE_TAGS={
+    messages.DEBUG:'alert-info',
+    messages.INFO:'alert-info',
+    messages.SUCCESS:'alert-success',
+    messages.WARNING:'alert-warning',
+    messages.ERROR:'alert-danger',
+}
 
 
 

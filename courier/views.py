@@ -9,6 +9,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .decorators import *
+from django.utils.safestring import mark_safe
+import json
+
 
 
 # Create your views here.
@@ -35,6 +38,7 @@ def logoutUser(request):
 @login_required(login_url='login')
 @allowed_users(allowed_roles=['admin'])
 def registerPage(request):
+
     form = CreateUserForm()
     if request.method == 'POST':
         form = CreateUserForm(request.POST)
@@ -45,10 +49,13 @@ def registerPage(request):
             Student.objects.create(
                 user=user,
                 room_no=form.cleaned_data.get('username'),
+                email=form.cleaned_data.get('email'),
             )
-
-            print("Acoount was created")
+            messages.success(request,'New Room_NO have been added!!!')
             return redirect('home')
+
+        else:
+            messages.error(request,'Room_NO already present or Inavalid password!!!')
 
     context = {'form': form}
     return render(request, 'courier/register_student.html', context)
@@ -187,3 +194,21 @@ def updateStudent(request, pk):
 
     context = {'form': form}
     return render(request, 'courier/update_form.html', context)
+
+
+@login_required
+def room(request, room_name):
+    room_name_json=mark_safe(json.dumps(room_name))
+    username=mark_safe(json.dumps(request.user.username))
+    student=Student.objects.get(id=room_name)
+
+    context={'room_name_json':room_name_json,'username':username,'student':student}
+    return render(request, 'courier/room.html', context)
+
+
+@login_required
+def comp_admin(request):
+    students = Student.objects.all()
+
+    context={'students':students}
+    return render(request,'courier/admin_complaint.html',context)

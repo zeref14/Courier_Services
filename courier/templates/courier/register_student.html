@@ -5,12 +5,14 @@
     <br>
     <div align="center">
         <div class="card border-dark mb-3" style="max-width: 18rem;">
-              <div class="card-header">Registration:</div>
+              <div class="card-header">Registration new Room:</div>
                       <div class="card-body text-dark">
                         <form method="post" action="">
                                {% csrf_token %}
-                                 <label>Username:</label>
+                                 <label>Room_No:</label>
                                  {{ form.username }}
+                                 <label>Email:</label>
+                                 {{ form.email }}
                                  <label>Password:</label>
                                  {{ form.password1 }}
                                  <label>Confirm Password:</label>

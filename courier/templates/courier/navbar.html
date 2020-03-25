@@ -27,9 +27,16 @@
         <li class="nav-item">
         <a class="nav-link" href="{% url 'register' %}">Register</a>
       </li>
+             <li class="nav-item">
+        <a class="nav-link" href={% url 'admin_complaint' %}>Complaint</a>
+      </li>
              {% else %}
              <li class="nav-item">
         <a class="nav-link" href="{% url 'user-page' %}">Home</a>
+      </li>
+                </li>
+            <li class="nav-item">
+        <a class="nav-link" href={% url 'room' request.user.student.id %}>Complaint</a>
       </li>
        <li class="nav-item">
         <a class="nav-link" href="{% url 'user_settings' %}">Settings</a>
@@ -46,6 +53,9 @@
     <span class="hello-msg" >Hello, {{ request.user.student.name }}</span>
 {% endif %}
 {% if request.user.is_staff %}
+    <li class="nav-item">
+       <img class="img" src="{% static 'images/admin.jpeg' %}" height="50px" >
+      </li>
        {% else %}
     <li class="nav-item">
        <img class="img" src="{{request.user.student.profile_pic.url}}" height="50px" >

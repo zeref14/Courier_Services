@@ -37,3 +37,13 @@ class Order(models.Model):
     company = models.ForeignKey(Company, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True, null=True)
     status = models.CharField(max_length=200, null=True, choices=STATUS)
+
+
+class Message(models.Model):
+    author = models.ForeignKey(User, related_name='author_messages', on_delete=models.CASCADE)
+    content = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    room_id = models.CharField(max_length=200, null=True)
+
+    def __str__(self):
+        return self.author.username

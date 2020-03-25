@@ -1,0 +1,26 @@
+{%  extends 'courier/main.html' %}
+
+{% block content %}
+
+<div class="card card-body">
+
+			<table class="table table-sm">
+				<tr>
+                    <th></th>
+                    <th>Student</th>
+                    <th>Room_No</th>
+					<th>Phone_No</th>
+				</tr>
+                {% for student in students %}
+                    <tr>
+                        <td><a class="btn btn-primary" href="{% url 'room' student.id %}" >Chat</a></td>
+                    <td>{{ student.name }}</td>
+                        <td>{{ student.room_no }}</td>
+                    <td>{{ student.phone }}</td>
+                    </tr>
+                {% endfor %}
+
+			</table>
+		</div>
+
+{% endblock %}
