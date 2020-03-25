@@ -4,6 +4,10 @@
         font-size: 18px;
         color: #ffffff;
         margin-right: 20px;
+        margin-left: 20px;
+    }
+    .img{
+        border-radius: 50%;
     }
 </style>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -15,7 +19,7 @@
     <ul class="navbar-nav">
          {% if request.user.is_staff %}
       <li class="nav-item active">
-        <a class="nav-link" href="{% url 'home' %}">Dashboard</a>
+        <a class="nav-link" href="{% url 'home' %}">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{% url 'company' %}">Companies</a>
@@ -23,10 +27,29 @@
         <li class="nav-item">
         <a class="nav-link" href="{% url 'register' %}">Register</a>
       </li>
+             {% else %}
+             <li class="nav-item">
+        <a class="nav-link" href="{% url 'user-page' %}">Home</a>
+      </li>
+       <li class="nav-item">
+        <a class="nav-link" href="{% url 'user_settings' %}">Settings</a>
+
+      </li>
+
         {% endif %}
 
     </ul>
   </div>
+{% if request.user.is_staff %}
     <span class="hello-msg" >Hello, {{ request.user }}</span>
+    {% else %}
+    <span class="hello-msg" >Hello, {{ request.user.student.name }}</span>
+{% endif %}
+{% if request.user.is_staff %}
+       {% else %}
+    <li class="nav-item">
+       <img class="img" src="{{request.user.student.profile_pic.url}}" height="50px" >
+      </li>
+{% endif %}
     <span><a class="hello-msg" href="{% url 'logout' %}" >Logout</a></span>
 </nav>

@@ -64,6 +64,19 @@ def userPage(request):
     context = {'orders': orders, 'total_orders': total_orders, 'delivered': delivered, 'pending': pending}
     return render(request, 'courier/user.html',context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['student'])
+def userSetting(request):
+    student=request.user.student
+    form=StudentForm(instance=student)
+    if request.method=='POST':
+        form=StudentForm(request.POST,request.FILES,instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('user-page')
+    context={'form':form}
+    return render(request,'courier/user_settings.html',context)
+
 
 @login_required(login_url='login')
 @admin_only
